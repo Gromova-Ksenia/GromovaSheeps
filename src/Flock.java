@@ -18,7 +18,9 @@ public class Flock {
         }
     }
 
-    void showFlock() {
+    void showFlock(int day) {
+        System.out.print("День ");
+        System.out.println(day);
         for (int i = 0; i < this.flockSize; i++) this.flock[i].showSheep();
     }
 
@@ -34,7 +36,8 @@ public class Flock {
         return maxIndex;
     }
 
-    void killSheep(int index, Barbecue barbecue) {
+    Sheep killSheep(int index) {
+        Sheep corpse = this.flock[index];
         Sheep temp[] = new Sheep[this.flockSize - 1];
         for (int i = 0, j = 0; i < this.flockSize; i++) {
             if (i != index) {
@@ -42,16 +45,16 @@ public class Flock {
                 j++;
             }
         }
-        barbecue.meat += this.flock[index].getWeight();
-        barbecue.hair += this.flock[index].getHair();
         this.flockSize--;
         this.flock = temp;
+        return corpse;
     }
 
     void newSheep() {
         Sheep temp[] = new Sheep[this.flockSize + 1];
         System.arraycopy(this.flock, 0, temp, 0, this.flockSize);
         temp[this.flockSize] = new Sheep();
+        this.flock = temp;
         this.flockSize++;
     }
 
